@@ -1,0 +1,17 @@
+@import "./utilis/variables.scss";
+@import "./utilis/mixin.scss";
+@import "./layout/header.scss";
+@import "./layout/footer.scss";
+
+html {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: $main-color;
+  }
+
+  
+main {
+  display: grid;
+}
