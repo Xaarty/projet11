@@ -2,7 +2,7 @@ import Button from "./button"
 
 export default function Form () {
     return (
-        <form>
+        <form id="form">
           <div className="input-wrapper">
             <label htmlFor="username">Username</label
             ><input type="text" id="username" />
