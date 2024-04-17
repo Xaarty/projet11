@@ -4,6 +4,7 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Home from "./routes/home";
 import SignIn from "./routes/sign-in";
+import User from "./routes/user";
 
 import {
   createBrowserRouter,
@@ -24,6 +25,9 @@ const router = createBrowserRouter([
       },{
         path: "/sign-in",
         element: <SignIn />
+      },{
+        path: "/user",
+        element: <User />
       },
     ],
   },

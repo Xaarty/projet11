@@ -1,3 +1,5 @@
+import Button from "./button"
+
 export default function Form () {
     return (
         <form>
@@ -13,7 +15,7 @@ export default function Form () {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
-          <input type="submit" name="button" value="Sign In" className="sign-in-button" /> 
+          <Button />
          
         </form>
     )
