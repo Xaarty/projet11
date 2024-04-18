@@ -1,4 +1,4 @@
-import Form from "./form"
+import FormLog from "./form"
 
 export default function Modale () {
     return (
@@ -6,7 +6,7 @@ export default function Modale () {
             <div className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                <Form />
+                <FormLog />
             </div>
         </section>
     )

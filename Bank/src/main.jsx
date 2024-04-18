@@ -3,8 +3,9 @@ import * as ReactDOM from "react-dom/client";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Home from "./routes/home";
-import SignIn from "./routes/sign-in";
+import SignIn, { action as rootAction } from "./routes/sign-in";
 import User from "./routes/user";
+
 
 import {
   createBrowserRouter,
@@ -24,7 +25,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },{
         path: "/sign-in",
-        element: <SignIn />
+        element: <SignIn />,
+        action: rootAction,
       },{
         path: "/user",
         element: <User />

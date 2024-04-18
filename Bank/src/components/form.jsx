@@ -1,15 +1,16 @@
 import Button from "./button"
+import { Form } from "react-router-dom"
 
-export default function Form () {
+export default function FormLog () {
     return (
-        <form id="form">
+        <Form id="form" method='post' action="/sign-in">
           <div className="input-wrapper">
             <label htmlFor="username">Username</label
-            ><input type="text" id="username" />
+            ><input type="text" id="username" name="username"/>
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label
-            ><input type="password" id="password" />
+            ><input type="password" id="password" name="password" />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
@@ -17,6 +18,6 @@ export default function Form () {
           </div>
           <Button />
          
-        </form>
+        </Form>
     )
 }
