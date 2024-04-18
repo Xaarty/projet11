@@ -1,4 +1,3 @@
-import Button from "./button"
 import { Form } from "react-router-dom"
 
 export default function FormLog () {
@@ -16,8 +15,7 @@ export default function FormLog () {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
-          <Button />
-         
+          <input type="submit" name="button" className="sign-in-button" value="Sign In"></input> 
         </Form>
     )
 }

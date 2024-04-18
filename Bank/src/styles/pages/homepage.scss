@@ -1,4 +1,7 @@
-.hero {
+.home-content {
+  width: 100%;
+
+  .hero {
     background-position: 0 -50px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -87,3 +90,4 @@
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
+}
