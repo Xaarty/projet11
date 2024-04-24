@@ -1,8 +1,9 @@
 import Modale from "../components/modale";
 import { getIds } from "../lib/fetch";
 import { redirect } from "react-router-dom";
-import { connect } from 'react-redux';
 import { loginSuccess, loginFailure } from '../actions/log.actions';
+
+import { connect } from 'react-redux';
 
 
 function SignIn() {
@@ -19,7 +20,6 @@ const mapDispatchToProps = {
 
 const ConnectedSignIn = connect(null, mapDispatchToProps)(SignIn);
 
-// Pass the loginSuccess and loginFailure functions to the action function
 export async function action({ request, loginFailure, loginSuccess }) {
     console.log(request);
     let id = null;
@@ -34,12 +34,11 @@ export async function action({ request, loginFailure, loginSuccess }) {
             
             return redirect ("/user");
         } else {
-            loginFailure({ message: "Invalid credentials" }); // Dispatch login failure action
+            loginFailure({ message: "Invalid credentials" }); 
         }
         
     } catch (error) {
         console.error('Error during login:', error.message);
-        // Display error message visually where the user enters the password
         loginFailure("An error occurred during login");
     }
 

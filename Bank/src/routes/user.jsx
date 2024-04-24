@@ -13,19 +13,19 @@ class User extends React.Component {
         return <ErrorPage />; // Render ErrorPage if user is not authenticated
       }
   
-      var json = jsonData;
+      var { accounts, accountName } = jsonData;
       return (
         <section className="main bg-dark">
           <div className="header">
-            <h1>Welcome back<br />Tony Jarvis!</h1>
+            <h1>Welcome back<br />{accountName}!</h1>
             <button className="edit-button">Edit Name</button>
           </div>
-          {json.map((props) => (
+          {accounts.map((account) => (
             <Balance
-              title={props.title}
-              amount={props.amount}
-              balance={props.balance}
-              key={props.id}
+              title={account.title}
+              amount={account.amount}
+              balance={account.balance}
+              key={account.id}
             />
           ))}
         </section>
@@ -34,8 +34,7 @@ class User extends React.Component {
   }
   
   const mapStateToProps = (state) => ({
-    isLoggedIn: state.authentication.isLoggedIn,
-    // Map other authentication-related state as needed
+    isLoggedIn: state.authenticationReducer.isLoggedIn,
   });
   
   export default connect(mapStateToProps)(User);

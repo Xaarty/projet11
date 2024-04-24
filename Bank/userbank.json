@@ -1,4 +1,5 @@
-[
+{
+  "accounts": [
     {
       "id": "6ft52re84",
       "title": "Argent Bank Checking (x8349)",
@@ -17,5 +18,6 @@
       "amount": "$184.30",
       "balance": "Current Balance"
     }
-  ]
-  
+  ],
+  "accountName": "Tony"
+}
