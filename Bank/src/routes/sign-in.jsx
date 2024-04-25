@@ -3,47 +3,44 @@ import { getIds } from "../lib/fetch";
 import { redirect } from "react-router-dom";
 import { loginSuccess, loginFailure } from '../actions/log.actions';
 
+import { useDispatch } from "react-redux";
 import { connect } from 'react-redux';
+import { authenticationReducer } from "../features/userSlic";
 
-
-function SignIn() {
+export default function SignIn() {
     return (
         <Modale />
-    );
+    )
 }
 
-const mapDispatchToProps = {
-    loginFailure,
-    loginSuccess,
-}
-
-
-const ConnectedSignIn = connect(null, mapDispatchToProps)(SignIn);
 
 export async function action({ request, loginFailure, loginSuccess }) {
-    console.log(request);
-    let id = null;
-    
+    console.log(request)
+    let id = null
+    // const dispatch = useDispatch();
 
     try {
         const formData = await request.formData();
-        const data = Object.fromEntries(formData.entries());
-        id = await getIds(data.username, data.password);
-        console.log(id);
+        const data = Object.fromEntries(formData.entries())
+        id = await getIds(data.username, data.password)
+        console.log(id)
         if (id?.status === 200) {
-            
+            window.localStorage.setItem('token', id.body.token)
+            // dispatch(authenticationReducer(true))
             return redirect ("/user");
+            
+           
         } else {
-            loginFailure({ message: "Invalid credentials" }); 
+            // loginFailure({ message: "Invalid credentials" });
         }
         
     } catch (error) {
-        console.error('Error during login:', error.message);
-        loginFailure("An error occurred during login");
+        console.error('Error during login:', error.message)
+        // loginFailure("An error occurred during login")
     }
 
     
 }
 
-export default ConnectedSignIn; // Export the connected component
+
 

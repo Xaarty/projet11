@@ -3,12 +3,19 @@ import { NavLink } from "react-router-dom";
 
 import jsonData from "../../userbank.json";
 
-import { connect } from "react-redux";
-import { logout } from "../actions/log.actions";
+import { connect, useDispatch } from "react-redux";
 
-function Header({ isLoggedIn, logout }) {
+import { useSelector } from "react-redux";
+import { authenticationReducer } from "../features/userSlic";
+
+function Header() {
+  const log = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const logout = () => dispatch(authenticationReducer(false))
+  window.localStorage.removeItem('token');
   const json = jsonData
   const { accountName } = json
+  console.log(log)
   return (
     <header>
       <nav className="main-nav">
@@ -16,39 +23,30 @@ function Header({ isLoggedIn, logout }) {
           <img className="main-nav-logo-image" src="./argentBankLogo.webp" alt="Argent Bank Logo" />
           <h1 className="sr-only">Argent Bank</h1>
         </NavLink>
-        {isLoggedIn ? (
-          <div>
-            <NavLink to="/sign-in" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
-              <i className="fa fa-user-circle"></i>
-              <p>Sign In</p>
-            </NavLink>
-          </div>
+        {log.isLoggedIn ? (
+            <div>
+              <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
+                <i className="fa fa-user-circle"></i>
+                <p>{accountName}</p>
+              </NavLink> 
+              <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"} onClick={logout}>
+                <i className="fa fa-sign-out"></i>
+                <p>Sign Out</p>
+              </NavLink>
+            </div>
         ) : ( 
-          <div>
-            <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
-              <i className="fa fa-user-circle"></i>
-              <p>{accountName}</p>
-            </NavLink> 
-            <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"} onClick={logout}>
-              <i className="fa fa-sign-out"></i>
-              <p>Sign Out</p>
-            </NavLink>
-          </div>
+           <div>
+           <NavLink to="/sign-in" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
+             <i className="fa fa-user-circle"></i>
+             <p>Sign In</p>
+           </NavLink>
+         </div>
         )}
       </nav>
     </header>
-  );
+  )
 }
 
-const mapStateToProps = (state) => {
-  console.log("State:", state); // Log the state object
-  return {
-    isLoggedIn: state.authenticationReducer.isLoggedIn,
-  };
-};
 
-const mapDispatchToProps = {
-  logout,
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default (Header)
