@@ -6,7 +6,7 @@ import jsonData from "../../userbank.json";
 import { connect, useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
-import { authenticationReducer } from "../features/userSlic";
+import { authenticationReducer } from "../features/userSlice";
 
 function Header() {
   const log = useSelector((state) => state.user);
@@ -24,12 +24,12 @@ function Header() {
           <h1 className="sr-only">Argent Bank</h1>
         </NavLink>
         {log.isLoggedIn ? (
-            <div>
-              <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
+            <div className="nav_logged">
+              <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"}>
                 <i className="fa fa-user-circle"></i>
                 <p>{accountName}</p>
               </NavLink> 
-              <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"} onClick={logout}>
+              <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"} onClick={logout}>
                 <i className="fa fa-sign-out"></i>
                 <p>Sign Out</p>
               </NavLink>

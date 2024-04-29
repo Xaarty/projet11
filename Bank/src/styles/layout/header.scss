@@ -17,6 +17,17 @@
       width: 58px;
     }
   }
+  .main-nav-item-logged {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 4px;
+    p {
+      margin-left: 2px;
+    }
+  }
   
   .main-nav-item:hover {
     text-decoration: underline;
@@ -41,5 +52,7 @@
   color: #42b983;
 }
 
-
-
+.nav_logged {
+  display: flex;
+  gap: 2px;
+}

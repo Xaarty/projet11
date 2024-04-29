@@ -5,7 +5,7 @@ import { loginSuccess, loginFailure } from '../actions/log.actions';
 
 import { useDispatch } from "react-redux";
 import { connect } from 'react-redux';
-import { authenticationReducer } from "../features/userSlic";
+import { authenticationReducer } from "../features/userSlice";
 
 export default function SignIn() {
     return (
