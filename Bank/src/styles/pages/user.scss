@@ -90,12 +90,36 @@
   
 .modale_user {
     display: grid;
+    grid-template-rows: 10% 40% auto;
     background-color: #fff;
-    width: 70vw;
-    height: 50vh;
+    width: 40vw;
+    height: 25vh;
     position: absolute;
-    top: 10vh;
-    justify-content: center;
-    align-self: center;
-    justify-self: center;
+    top: 22vh;
+    align-items: center;
+    border: #000 1px solid;
+
+    &_button {
+        display: grid;
+        justify-self: end;
+        width: 5%;
+        height: 80%;
+        background-color: #00bc77;
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+    #form {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        justify-content: center;
+        margin: 0 15%;
+
+        button {
+            background-color: #00bc77;
+            border: none;
+        }
+    }
 }

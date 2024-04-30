@@ -38,7 +38,7 @@ export default function User() {
                   ))}
                   
               </section>
-              {isModalOpen && <UsernameModale />}
+              {isModalOpen && <UsernameModale log = {handleOpenModal} />}
               </div>
             )
   } else {
