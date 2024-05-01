@@ -1,7 +1,9 @@
+import { act } from "react";
 
 const initialState = {
     isLoggedIn: false,
     error: null,
+    token: null,
     // Other authentication-related state
 };
 
@@ -27,6 +29,11 @@ const authenticationReducer = (state = initialState, action) => {
                 // Reset other authentication-related state
                 error: null, // Clear any previous errors on logout
             };
+        case 'SET_TOKEN':
+            return {
+                ...state,
+                token: action.payload,
+            }
         default:
             return state;
     }

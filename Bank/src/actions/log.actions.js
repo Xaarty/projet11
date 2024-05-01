@@ -12,3 +12,8 @@ export const loginFailure = (error) => ({
 export const logout = () => ({
     type: 'LOGOUT'
 });
+
+export const setToken = (token) => ({
+    type: 'SET_TOKEN',
+    payload: token,
+  });

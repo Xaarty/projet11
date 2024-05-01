@@ -1,12 +1,16 @@
 import * as React from "react";
+import { useEffect } from "react";
 import * as ReactDOM from "react-dom/client";
+
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Home from "./routes/home";
 import SignIn, { action as rootAction } from "./routes/sign-in";
 import User from "./routes/user";
+import { authenticationReducer } from "./features/userSlice.jsx";
 
-import { Provider } from "react-redux";
+
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./store.js";
 
 import {
@@ -15,7 +19,26 @@ import {
 } from "react-router-dom";
 
 
+function AuthenticatedRoute ({ element, ...rest }) {
+  const dispatch = useDispatch();
+  const token = window.localStorage.getItem('token');
 
+  useEffect(() => {
+    if (token != null) {
+      console.log('ok');
+      dispatch(authenticationReducer(true));
+    } else {
+      console.log('fail');
+    }
+  }, [dispatch, token]);
+
+  return token != null ? element : null;
+};
+
+// const token = window.localStorage.getItem('token');
+// if (token) {
+//   store.dispatch(authenticationReducer({ isLoggedIn: true, token: token, isAuthenticated: true }));
+// }
 
 const router = createBrowserRouter([
   {
@@ -32,7 +55,7 @@ const router = createBrowserRouter([
         action: rootAction,
       },{
         path: "/user",
-        element: <User />,
+        element: <AuthenticatedRoute element={<User />} />,
       },
     ],
   },

@@ -17,7 +17,7 @@ export default function SignIn() {
 export async function action({ request, loginFailure, loginSuccess }) {
     console.log(request)
     let id = null
-    // const dispatch = useDispatch();
+    
 
     try {
         const formData = await request.formData();
@@ -26,20 +26,16 @@ export async function action({ request, loginFailure, loginSuccess }) {
         console.log(id)
         if (id?.status === 200) {
             window.localStorage.setItem('token', id.body.token)
-            // dispatch(authenticationReducer(true))
             return redirect ("/user");
             
            
         } else {
-            // loginFailure({ message: "Invalid credentials" });
+            loginFailure({ message: "Invalid credentials" });
         }
         
     } catch (error) {
         console.error('Error during login:', error.message)
-        // loginFailure("An error occurred during login")
-    }
-
-    
+    }   
 }
 
 

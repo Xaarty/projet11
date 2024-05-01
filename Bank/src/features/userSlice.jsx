@@ -7,10 +7,14 @@ export const userSlice = createSlice({
     isLoggedIn: false,
     error: null,
     isModalOpen: false,
+    token: null,
+    isAuthenticated: false,
   },
   reducers: {
     authenticationReducer : (state, action) => {
-        state.isLoggedIn = action.payload;
+      state.isLoggedIn = action.payload;
+      state.token = action.payload.token;
+      state.isAuthenticated = action.payload.isAuthenticated;
     },
     openModal: (state) => {
       state.isModalOpen = true;
