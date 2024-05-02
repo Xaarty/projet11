@@ -9,12 +9,17 @@ export const userSlice = createSlice({
     isModalOpen: false,
     token: null,
     isAuthenticated: false,
+    profile: null,
   },
   reducers: {
     authenticationReducer : (state, action) => {
       state.isLoggedIn = action.payload;
       state.token = action.payload.token;
+      // console.log(action.payload)
       state.isAuthenticated = action.payload.isAuthenticated;
+    },
+    saveToken : (state, action) => {
+      state.token = action.payload;
     },
     openModal: (state) => {
       state.isModalOpen = true;
@@ -22,9 +27,12 @@ export const userSlice = createSlice({
     closeModal: (state) => {
       state.isModalOpen = false;
     },
+    setProfile : (state, action) => {
+      state.profile = action.payload;
+    },
   },
 });
 
-export const { authenticationReducer, openModal, closeModal } = userSlice.actions;
+export const { authenticationReducer, openModal, closeModal, saveToken, setProfile } = userSlice.actions;
 
 export default userSlice.reducer;

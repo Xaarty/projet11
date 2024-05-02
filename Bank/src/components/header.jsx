@@ -3,16 +3,16 @@ import { NavLink } from "react-router-dom";
 
 import jsonData from "../../userbank.json";
 
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
 import { authenticationReducer } from "../features/userSlice";
 
 function Header() {
   const log = useSelector((state) => state.user);
+  // const log = {isLoggedIn : true}
   const dispatch = useDispatch();
   const logout = () => dispatch(authenticationReducer(false))
-  window.localStorage.removeItem('token');
   const json = jsonData
   const { accountName } = json
   console.log(log)
@@ -37,7 +37,7 @@ function Header() {
         ) : ( 
            <div>
            <NavLink to="/sign-in" className={({ isActive, isPending }) => isPending ? "pending main-nav-item" : isActive ? "active main-nav-item" : "main-nav-item"}>
-             <i className="fa fa-user-circle"></i>
+             <i className="fa fa-user-circle"></i> 
              <p>Sign In</p>
            </NavLink>
          </div>
@@ -45,6 +45,7 @@ function Header() {
       </nav>
     </header>
   )
+
 }
 
 

@@ -7,7 +7,7 @@ import ErrorPage from "./error-page";
 import Home from "./routes/home";
 import SignIn, { action as rootAction } from "./routes/sign-in";
 import User from "./routes/user";
-import { authenticationReducer } from "./features/userSlice.jsx";
+import { authenticationReducer, saveToken } from "./features/userSlice.jsx";
 
 
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import {
 function AuthenticatedRoute ({ element, ...rest }) {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem('token');
+  console.log(token)
 
   useEffect(() => {
     if (token != null) {

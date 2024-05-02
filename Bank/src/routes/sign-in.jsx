@@ -26,7 +26,8 @@ export async function action({ request, loginFailure, loginSuccess }) {
         console.log(id)
         if (id?.status === 200) {
             window.localStorage.setItem('token', id.body.token)
-            return redirect ("/user");
+            setTimeout(() => {}, 100)
+            // return redirect ("/user");
             
            
         } else {
@@ -35,7 +36,9 @@ export async function action({ request, loginFailure, loginSuccess }) {
         
     } catch (error) {
         console.error('Error during login:', error.message)
-    }   
+    }  
+    window.localStorage.setItem('token', id.body.token)
+    return redirect ("/user") 
 }
 
 

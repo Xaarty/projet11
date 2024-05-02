@@ -4,13 +4,15 @@ import jsonData from "../../userbank.json";
 import UsernameModale from "../components/usernamemodale";
 
 import { useDispatch, useSelector} from "react-redux";
-import { openModal } from "../features/userSlice";
+import { openModal, setProfile } from "../features/userSlice";
 
   
 export default function User() {
   var { accounts, accountName } = jsonData;
   const dispatch = useDispatch()
   const isModalOpen = useSelector((state) => state.user.isModalOpen);
+  const profile = useSelector((state) => state.user.profile);
+  console.log(profile)
   const token = window.localStorage.getItem('token');
 
   const [profileName, setProfileName] = useState("");
@@ -27,9 +29,9 @@ export default function User() {
           body: JSON.stringify({}),
         });
         const data = await response.json();
+        console.log(data)
         if (response.ok) {
-          // Assuming the profile name is stored in data.body.email
-          setProfileName(data.body.email);
+          dispatch(setProfile(data.body))
         } else {
           console.error("Failed to fetch profile name:", data.message);
         }
@@ -39,7 +41,7 @@ export default function User() {
     };
 
     fetchProfileName();
-  }, []); // Empty dependency array to run the effect only once when component mounts
+  }, []);
 
 
   const handleOpenModal = () => {
@@ -49,7 +51,7 @@ export default function User() {
             <div className="full-screen">
               <section className="main bg-dark">
                 <div className="header">
-                  <h1>Welcome back<br />{profileName}!</h1>
+                  <h1>Welcome back<br />{profile?.userName}!</h1>
                   <button className="edit-button" onClick={handleOpenModal}>Edit Name</button>
                 </div>
                 {accounts.map((account) => (
@@ -62,7 +64,7 @@ export default function User() {
                 ))}
                 
             </section>
-            {isModalOpen && <UsernameModale />}
+            {isModalOpen && <UsernameModale profile = {profile} />}
             </div>
           )
 
