@@ -38,6 +38,7 @@ export default function UsernameModal({profile}) {
             if (response.ok) {
                 console.log("Username updated successfully:", data);
                 dispatch(setProfile(data.body))
+                dispatch(closeModal())
             } else {
                 console.error("Failed to update username:", data.message);
             }
@@ -47,17 +48,38 @@ export default function UsernameModal({profile}) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">New Username:</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value={newUsername}
-                onChange={(event) => setNewUsername(event.target.value)}
-                required
-            />
-            <button type="submit">Save</button>
-        </form>
+        <div className="Edit_box">
+            <div className="Edit_box_div">
+                <h1>Edit user info</h1>
+                <div className="Edit"> 
+                    <div className="Edit_row">
+                        <label className="Edit_row_title" htmlFor="username">User name:</label>
+                        <input
+                            className="Edit_row_box extra"
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={newUsername}
+                            onChange={(event) => setNewUsername(event.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="Edit_row">
+                        <h2 className="Edit_row_title">First name:</h2>
+                        <div className="Edit_row_box"><p>{profile?.firstName}</p></div>
+                    </div>
+                    <div className="Edit_row">
+                        <h2 className="Edit_row_title">Last name:</h2>
+                        <div className="Edit_row_box"><p>{profile?.lastName}</p></div>
+                    </div>
+                </div>
+                <div className="Edit_button">
+                    <button className="Edit_button_box" type="submit" onClick={handleSubmit}>Save</button>
+                    <button className="Edit_button_box" onClick={() => dispatch(closeModal())}>Cancel</button>
+                </div>
+            </div>
+           
+        </div>
+       
     );
 }

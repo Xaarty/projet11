@@ -50,10 +50,14 @@ export default function User() {
   return (
             <div className="full-screen">
               <section className="main bg-dark">
-                <div className="header">
-                  <h1>Welcome back<br />{profile?.userName}!</h1>
-                  <button className="edit-button" onClick={handleOpenModal}>Edit Name</button>
-                </div>
+                {isModalOpen ? (
+                  <UsernameModale profile={profile} />
+                ) : (
+                  <div className="header">
+                    <h1>Welcome back<br />{profile?.userName}!</h1>
+                    <button className="edit-button" onClick={handleOpenModal}>Edit Name</button>
+                  </div>
+                )}
                 {accounts.map((account) => (
                   <Balance
                     title={account.title}
@@ -64,7 +68,6 @@ export default function User() {
                 ))}
                 
             </section>
-            {isModalOpen && <UsernameModale profile = {profile} />}
             </div>
           )
 
