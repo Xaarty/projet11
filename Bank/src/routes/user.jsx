@@ -5,44 +5,28 @@ import UsernameModale from "../components/usernamemodale";
 
 import { useDispatch, useSelector} from "react-redux";
 import { openModal, setProfile } from "../features/userSlice";
-
+import { fetchUserProfile } from "../lib/fetch";
   
 export default function User() {
-  var { accounts, accountName } = jsonData;
+  var { accounts } = jsonData;
   const dispatch = useDispatch()
   const isModalOpen = useSelector((state) => state.user.isModalOpen);
   const profile = useSelector((state) => state.user.profile);
   console.log(profile)
   const token = window.localStorage.getItem('token');
 
-  const [profileName, setProfileName] = useState("");
-
   useEffect(() => {
-    const fetchProfileName = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-             "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({}),
-        });
-        const data = await response.json();
-        console.log(data)
-        if (response.ok) {
-          dispatch(setProfile(data.body))
-        } else {
-          console.error("Failed to fetch profile name:", data.message);
-        }
+        const userProfile = await fetchUserProfile(token);
+        dispatch(setProfile(userProfile));
       } catch (error) {
-        console.error("Error fetching profile name:", error);
+        console.error("Error fetching profile:", error);
       }
     };
 
-    fetchProfileName();
-  }, []);
-
+    fetchProfile();
+  }, [dispatch, token]);
 
   const handleOpenModal = () => {
     dispatch(openModal())

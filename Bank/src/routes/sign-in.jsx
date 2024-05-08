@@ -1,11 +1,8 @@
 import Modale from "../components/modale";
 import { getIds } from "../lib/fetch";
 import { redirect } from "react-router-dom";
-import { loginSuccess, loginFailure } from '../actions/log.actions';
+import { loginFailure } from '../actions/log.actions';
 
-import { useDispatch } from "react-redux";
-import { connect } from 'react-redux';
-import { authenticationReducer } from "../features/userSlice";
 
 export default function SignIn() {
     return (
@@ -14,7 +11,7 @@ export default function SignIn() {
 }
 
 
-export async function action({ request, loginFailure, loginSuccess }) {
+export async function action({ request, loginFailure }) {
     console.log(request)
     let id = null
     

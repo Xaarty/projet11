@@ -4,11 +4,10 @@ import { NavLink } from "react-router-dom";
 import jsonData from "../../userbank.json";
 
 import { useDispatch } from "react-redux";
-
 import { useSelector } from "react-redux";
 import { authenticationReducer } from "../features/userSlice";
 
-function Header() {
+export default function Header() {
   const log = useSelector((state) => state.user);
   // const log = {isLoggedIn : true}
   const dispatch = useDispatch();
@@ -50,4 +49,3 @@ function Header() {
 
 
 
-export default (Header)
