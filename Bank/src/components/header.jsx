@@ -5,16 +5,21 @@ import jsonData from "../../userbank.json";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { authenticationReducer } from "../features/userSlice";
+import { authenticationReducer, closeModal } from "../features/userSlice";
+
 
 export default function Header() {
   const log = useSelector((state) => state.user);
-  // const log = {isLoggedIn : true}
   const dispatch = useDispatch();
   const logout = () => dispatch(authenticationReducer(false))
   const json = jsonData
   const { accountName } = json
   console.log(log)
+
+  const handleLogout = () => {
+    dispatch(closeModal());
+    dispatch(authenticationReducer(false));
+  }
   return (
     <header>
       <nav className="main-nav">
@@ -24,7 +29,7 @@ export default function Header() {
         </NavLink>
         {log.isLoggedIn ? (
             <div className="nav_logged">
-              <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"}>
+              <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"}  onClick={handleLogout}>
                 <i className="fa fa-user-circle"></i>
                 <p>{accountName}</p>
               </NavLink> 
