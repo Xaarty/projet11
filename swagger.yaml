@@ -1,15 +1,115 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   title: Bank Argent API documentation
-  description: Contains all available API endpoints in this codebase
   version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
-host: localhost:3001
-basePath: /api/v1
-schemes:
-  - http
+  description: Contains all available API endpoints in this codebase
+servers:
+  - url: localhost:3001/api/v1
 paths:
-  /user/login:
+  /transactions:
+    get:
+      summary: Monthly transactions
+      description: All the transactions for the current month.
+      parameters:
+        - name: month
+          in: query
+          description: Month to get transctions for.
+          schema:
+            type: string
+        - name: accountId
+          in: query
+          description: Account id.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Data fetched successfully.
+        '400':
+          description: Invalid Fields.
+        '500':
+          description: Internal Server Error.
+  /transactions/{transactionId}:
+    parameters:
+      - name: transactionId
+        in: path
+        description: Required id.
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Another transactions vue
+      description: Get data from a spécific transcation.
+      responses:
+        '200':
+          description: Data fetched successfully.
+        '400':
+          description: Invalid Fields.
+        '500':
+          description: Internal Server Error.
+    post:
+      summary: Add transaction informations
+      description: Add a transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: string
+                amount:
+                  type: number
+                description:
+                  type: string
+                date:
+                  type: string
+      responses:
+        '200':
+          description: success data post.
+        '400':
+          description: Invalid Fields.
+        '500':
+          description: Internal Server Error.
+    put:
+      summary: Modify transaction informations
+      description: Modify a transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: string
+                amount:
+                  type: number
+                description:
+                  type: string
+                date:
+                  type: string
+      responses:
+        '200':
+          description: success data post.
+        '404':
+          description: transaction not found.
+        '400':
+          description: Invalid Fields.
+        '500':
+          description: Internal Server Error.
+    delete:
+      summary: Delete transaction informations
+      description: Delete a transaction.
+      responses:
+        '200':
+          description: Delete successfull.
+        '404':
+          description: transaction not found.
+        '500':
+          description: Internal Server Error.
+          
+/user/login:
     post:
       tags:
         - User Module
@@ -33,79 +133,74 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/signup:
-    post:
-      tags:
-        - User Module
-      summary: Signup
-      description: API for Signup
-      parameters:
-        - in: body
-          name: body
-          description: Signup Payload
-          required: true
-          schema:
-            $ref: '#/definitions/User'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Signup Successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/profile:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for fetching a user profile
-      #produces:
-       # - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for updating a user profile
-      parameters:
-        - in: body
-          name: body
-          description: Update user profile attributes
-          required: true
-          schema:
-            $ref: '#/definitions/UserProfile'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User profile retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
+/user/signup:
+  post:
+    tags:
+      - User Module
+    summary: Signup
+    description: API for Signup
+    parameters:
+      - in: body
+        name: body
+        description: Signup Payload
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: Signup Successfully
+        schema:
+          $ref: '#/definitions/ApiResponse'
+      '400':
+        description: Invalid Fields
+      '500':
+        description: Internal Server Error
+/user/profile:
+  post:
+    security:
+      - Bearer: []
+    tags:
+      - User Module
+    summary: User Profile API
+    description: API for fetching a user profile
+    #produces:
+     # - application/json
+    responses:
+      '200':
+        description: User profile retrieved successully
+        schema:
+          $ref: '#/definitions/ApiResponse'
+      '400':
+        description: Invalid Fields
+      '500':
+        description: Internal Server Error
+  put:
+    security:
+      - Bearer: []
+    tags:
+      - User Module
+    summary: User Profile API
+    description: API for updating a user profile
+    parameters:
+      - in: body
+        name: body
+        description: Update user profile attributes
+        required: true
+        schema:
+          $ref: '#/definitions/UserProfile'
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: User profile retrieved successully
+        schema:
+          $ref: '#/definitions/ApiResponse'
+      '400':
+        description: Invalid Fields
+      '500':
+        description: Internal Server Error
 definitions:
   User:
     properties:
