@@ -36,10 +36,6 @@ function AuthenticatedRoute ({ element }) {
   return token != null ? element : null;
 };
 
-// const token = window.localStorage.getItem('token');
-// if (token) {
-//   store.dispatch(authenticationReducer({ isLoggedIn: true, token: token, isAuthenticated: true }));
-// }
 
 const router = createBrowserRouter([
   {

@@ -1,7 +1,6 @@
 import Modale from "../components/modale";
 import { getIds } from "../lib/fetch";
 import { redirect } from "react-router-dom";
-import { loginFailure } from '../actions/log.actions';
 
 
 export default function SignIn() {
@@ -23,8 +22,8 @@ export async function action({ request, loginFailure }) {
         console.log(id)
         if (id?.status === 200) {
             window.localStorage.setItem('token', id.body.token)
-            setTimeout(() => {}, 100)
-            // return redirect ("/user");
+
+            return redirect ("/user");
             
            
         } else {
