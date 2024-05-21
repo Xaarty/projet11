@@ -22,7 +22,6 @@ export async function action({ request, loginFailure }) {
         console.log(id)
         if (id?.status === 200) {
             window.localStorage.setItem('token', id.body.token)
-
             return redirect ("/user");
             
            
