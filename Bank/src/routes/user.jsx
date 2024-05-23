@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Balance from "../components/Balance-card";
 import jsonData from "../../userbank.json";
 import UsernameModale from "../components/usernamemodale";

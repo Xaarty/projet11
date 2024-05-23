@@ -18,9 +18,8 @@ export default function UsernameModal({profile}) {
                 return;
             }
 
-            const newData = { userName: newUsername }; // Create JSON data
-            const data = await updateUserProfile(token, newData); // Call the API function with JSON data
-
+            const newData = { userName: newUsername }; 
+            const data = await updateUserProfile(token, newData); 
             console.log("User profile updated successfully:", data);
             dispatch(setProfile(data.body));
             dispatch(closeModal());
