@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { useDispatch,  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeModal, setProfile } from "../features/userSlice";
 import { updateUserProfile } from "../lib/userApi";
 
-
-export default function UsernameModal({profile}) {
-    
-    const [newUsername, setNewUsername] = useState(profile.firstName);
-    const dispatch = useDispatch()
+export default function UsernameModal({ profile }) {
+    const [newUsername, setNewUsername] = useState(profile.userName);
+    const dispatch = useDispatch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -18,8 +16,8 @@ export default function UsernameModal({profile}) {
                 return;
             }
 
-            const newData = { userName: newUsername }; 
-            const data = await updateUserProfile(token, newData); 
+            const newData = { userName: newUsername };
+            const data = await updateUserProfile(token, newData);
             console.log("User profile updated successfully:", data);
             dispatch(setProfile(data.body));
             dispatch(closeModal());
@@ -27,11 +25,12 @@ export default function UsernameModal({profile}) {
             console.error("Error updating user profile:", error);
         }
     };
+
     return (
         <div className="Edit_box">
             <div className="Edit_box_div">
                 <h1>Edit user info</h1>
-                <form className="Edit"> 
+                <form className="Edit" onSubmit={handleSubmit}>
                     <div className="Edit_row">
                         <label className="Edit_row_title" htmlFor="username">User name:</label>
                         <input
@@ -52,13 +51,12 @@ export default function UsernameModal({profile}) {
                         <h2 className="Edit_row_title">Last name:</h2>
                         <div className="Edit_row_box"><p>{profile?.lastName}</p></div>
                     </div>
+                    <div className="Edit_button">
+                        <button className="Edit_button_box" type="submit">Save</button>
+                        <button className="Edit_button_box" type="button" onClick={() => dispatch(closeModal())}>Cancel</button>
+                    </div>
                 </form>
-                <div className="Edit_button">
-                    <button className="Edit_button_box" type="submit" onClick={handleSubmit}>Save</button>
-                    <button className="Edit_button_box" onClick={() => dispatch(closeModal())}>Cancel</button>
-                </div>
             </div>
         </div>
-       
     );
 }

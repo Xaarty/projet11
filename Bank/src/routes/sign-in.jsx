@@ -1,16 +1,19 @@
 import Modale from "../components/modale";
 import { getIds } from "../lib/fetch";
-import { redirect } from "react-router-dom";
-
+import { useActionData, redirect } from "react-router-dom";
 
 export default function SignIn() {
-    return (
-        <Modale />
-    )
+  const actionData = useActionData();
+
+  return (
+    <Modale error={actionData?.error} />
+  );
 }
 
 
-export async function action({ request, loginFailure }) {
+// Si il y a une erreur, récupérer cette erreur dans error puis la passer en prop
+
+export async function action({ request }) {
     console.log(request)
     let id = null
     
@@ -26,15 +29,13 @@ export async function action({ request, loginFailure }) {
             
            
         } else {
-            loginFailure({ message: "Invalid credentials" });
+            return { error: "Invalid credentials" };
         }
         
     } catch (error) {
         console.error('Error during login:', error.message)
+        return { error: "Invalid credentials" };
     }  
-    window.localStorage.setItem('token', id.body.token)
-    return redirect ("/user") 
 }
-
 
 

@@ -15,6 +15,8 @@ export default function Header() {
   const { accountName } = json
   console.log(log)
 
+  const profile = useSelector((state) => state.user.profile);
+
   const handleLogout = () => {
     dispatch(closeModal());
     dispatch(authenticationReducer(false));
@@ -30,7 +32,7 @@ export default function Header() {
             <div className="nav_logged">
               <NavLink to="/user" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"}>
                 <i className="fa fa-user-circle"></i>
-                <p>{accountName}</p>
+                <p>{profile?.userName}</p>
               </NavLink> 
               <NavLink to="/" className={({ isActive, isPending }) => isPending ? "pending main-nav-item-logged" : isActive ? "active main-nav-item-logged" : "main-nav-item-logged"} onClick={handleLogout}>
                 <i className="fa fa-sign-out"></i>
